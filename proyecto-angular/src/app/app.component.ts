@@ -8,7 +8,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   template: `
     <div class="app-container">
       <h1>Bienvenido a la Aplicación de Generación de Evaluaciones</h1>
-      <button routerLink="/evaluation-generator">Ir al Generador de Evaluaciones</button>
+      <button routerLink="/evaluation-generator" class="options_generate">Ir al Generador de Evaluaciones</button>
+      <button routerLink="/document-generator" class="options_generate">Ir al Generador de Documentos Word</button>
       <router-outlet></router-outlet>
     </div>
   `,
@@ -16,6 +17,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     h1 {
       text-align: center;
       color: #333;
+    }
+    .options_generate {
+      margin: 5px;
     }
   `]
 })

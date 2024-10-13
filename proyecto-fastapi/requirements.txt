@@ -9,3 +9,6 @@ tiktoken
 sqlalchemy
 pydantic_settings
 psycopg2
+python-jose
+passlib
+python-docx

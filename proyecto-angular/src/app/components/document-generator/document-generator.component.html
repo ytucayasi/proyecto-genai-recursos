@@ -1,0 +1,22 @@
+<form #docForm="ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="malla_curricular">Malla Curricular:</label>
+    <textarea id="malla_curricular" [(ngModel)]="malla_curricular" name="malla_curricular" required></textarea>
+  </div>
+  <div>
+    <label for="silabo">Sílabo:</label>
+    <textarea id="silabo" [(ngModel)]="silabo" name="silabo" required></textarea>
+  </div>
+  <div>
+    <label for="rubricas">Rúbricas:</label>
+    <textarea id="rubricas" [(ngModel)]="rubricas" name="rubricas" required></textarea>
+  </div>
+  <div>
+    <label for="tema">Tema:</label>
+    <input type="text" id="tema" [(ngModel)]="tema" name="tema" required>
+  </div>
+  <button type="submit" [disabled]="loading || docForm.invalid">Generar Documento</button>
+</form>
+
+<!-- Mensaje de carga -->
+<p *ngIf="loading">Generando documento...</p>

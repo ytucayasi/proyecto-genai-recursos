@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routes import cuestionario_routes
 from app.config import settings
+from app.routes import document
 
 # Crea las tablas en la base de datos
 Base.metadata.create_all(bind=engine)
@@ -23,6 +24,7 @@ app.add_middleware(
 )
 
 app.include_router(cuestionario_routes.router, prefix="/cuestionario", tags=["cuestionario"])
+app.include_router(document.router, prefix="/documents", tags=["documents"])
 
 @app.get("/")
 def read_root():
