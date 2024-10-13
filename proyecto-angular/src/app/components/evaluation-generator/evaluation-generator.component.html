@@ -1,0 +1,71 @@
+<h1>Generador de Evaluaciones</h1>
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <label for="files">Subir archivos PDF:</label>
+        <input type="file" id="files" multiple (change)="onFileChange($event)" accept=".pdf" required>
+    </div>
+    <div>
+        <label for="numQuestions">Número de preguntas:</label>
+        <input type="number" id="numQuestions" [ngModel]="numQuestions()" (ngModelChange)="updateNumQuestions($event)"
+            name="numQuestions" min="1" required>
+    </div>
+    <div>
+        <label for="numOptions">Número de opciones:</label>
+        <input type="number" id="numOptions" [ngModel]="numOptions()" (ngModelChange)="updateNumOptions($event)"
+            name="numOptions" min="2" required>
+    </div>
+    <div>
+        <label for="difficulty">Dificultad:</label>
+        <select id="difficulty" [ngModel]="difficulty()" (ngModelChange)="updateDifficulty($event)" name="difficulty">
+            <option [ngValue]="0">Fácil</option>
+            <option [ngValue]="1">Medio</option>
+            <option [ngValue]="2">Difícil</option>
+        </select>
+    </div>
+    <div>
+        <label for="type">Tipo de preguntas:</label>
+        <select id="type" [ngModel]="type()" (ngModelChange)="updateType($event)" name="type">
+            <option [ngValue]="0">Mixto</option>
+            <option [ngValue]="1">Solo opciones</option>
+            <option [ngValue]="2">Solo preguntas libres</option>
+            <option [ngValue]="3">Verdadero y falso</option>
+        </select>
+    </div>
+    <button type="submit" [disabled]="loading()">Generar Evaluación</button>
+</form>
+
+@if (loading()) {
+<p>Generando evaluación...</p>
+}
+
+@if (evaluation()) {
+<div class="evaluation">
+    <h2>Evaluación Generada</h2>
+    @for (pregunta of evaluation()!.preguntas; track $index) {
+    <div class="question">
+        <h3>Pregunta {{$index + 1}}</h3>
+        <p>{{pregunta.pregunta}}</p>
+        @switch (pregunta.tipo) {
+        @case ('opcion_multiple') {
+        <ul>
+            @for (opcion of pregunta.opciones!; track $index) {
+            <li [class.correct-answer]="$index === pregunta.respuesta_correcta">
+                {{opcion}}
+                @if ($index === pregunta.respuesta_correcta) {
+                <span> (Respuesta correcta)</span>
+                }
+            </li>
+            }
+        </ul>
+        }
+        @case ('verdadero_falso') {
+        <p>Respuesta correcta: {{pregunta.respuesta_correcta ? 'Verdadero' : 'Falso'}}</p>
+        }
+        @case ('abierta') {
+        <p>Respuesta sugerida: {{pregunta.respuesta_sugerida}}</p>
+        }
+        }
+    </div>
+    }
+</div>
+}
