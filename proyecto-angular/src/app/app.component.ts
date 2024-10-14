@@ -7,14 +7,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   imports: [RouterLink, RouterOutlet],
   template: `
     <div class="app-container">
-<<<<<<< HEAD
-      <h1>Bienvenido a la Aplicación de Generación de Contenido</h1>
-      <nav>
-        <button routerLink="/evaluation-generator" class="options_generate">Ir al Generador de Evaluaciones</button>
-        <button routerLink="/document-generator" class="options_generate">Ir al Generador de Documentos Word</button>
-        <button routerLink="/presentation-generator" class="options_generate">Ir al Generador de Presentaciones</button>
-      </nav>
-=======
       <div class="header">
         <div class="logo">
           <img src="images/logo.jpg" alt="Logo de la aplicación" width="100" height="100"/>
@@ -25,7 +17,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       </div>
       <button routerLink="/evaluation-generator" class="options_generate">Ir al Generador de Evaluaciones</button>
       <button routerLink="/document-generator" class="options_generate">Ir al Generador de Documentos Word</button>
->>>>>>> a00246ab297ee86581d065a5d71aa47fab12423c
+      <button routerLink="/presentation-generator" class="options_generate">Ir al Generador de Presentaciones</button>
       <router-outlet></router-outlet>
     </div>
   `,
@@ -37,12 +29,11 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     .options_generate {
       margin: 5px;
     }
-<<<<<<< HEAD
     nav {
       display: flex;
       justify-content: center;
       margin-bottom: 20px;
-=======
+    }
     .app-container {
       text-align: center;
       padding: 20px;
@@ -69,7 +60,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       margin: 10px;
       padding: 10px 20px;
       font-size: 16px;
->>>>>>> a00246ab297ee86581d065a5d71aa47fab12423c
     }
   `]
 })
