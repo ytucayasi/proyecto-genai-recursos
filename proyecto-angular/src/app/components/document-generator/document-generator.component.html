@@ -1,22 +1,37 @@
-<form #docForm="ngForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="malla_curricular">Malla Curricular:</label>
-    <textarea id="malla_curricular" [(ngModel)]="malla_curricular" name="malla_curricular" required></textarea>
-  </div>
-  <div>
-    <label for="silabo">Sílabo:</label>
-    <textarea id="silabo" [(ngModel)]="silabo" name="silabo" required></textarea>
-  </div>
-  <div>
-    <label for="rubricas">Rúbricas:</label>
-    <textarea id="rubricas" [(ngModel)]="rubricas" name="rubricas" required></textarea>
-  </div>
-  <div>
-    <label for="tema">Tema:</label>
-    <input type="text" id="tema" [(ngModel)]="tema" name="tema" required>
-  </div>
-  <button type="submit" [disabled]="loading || docForm.invalid">Generar Documento</button>
-</form>
+<div class="container">
+  <form #docForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="malla_curricular">Malla Curricular:</label>
+      <textarea id="malla_curricular" [(ngModel)]="malla_curricular" name="malla_curricular" required></textarea>
+    </div>
+    <div>
+      <label for="silabo">Sílabo:</label>
+      <textarea id="silabo" [(ngModel)]="silabo" name="silabo" required></textarea>
+    </div>
+    <div>
+      <label for="rubricas">Rúbricas:</label>
+      <textarea id="rubricas" [(ngModel)]="rubricas" name="rubricas" required></textarea>
+    </div>
+    <div>
+      <label for="tema">Tema:</label>
+      <input type="text" id="tema" [(ngModel)]="tema" name="tema" required>
+    </div>
+    <button type="submit" [disabled]="loading || docForm.invalid">Generar Documento</button>
+  </form>
 
-<!-- Mensaje de carga -->
-<p *ngIf="loading">Generando documento...</p>
+  <!-- Mensaje de carga -->
+  <p *ngIf="loading">Generando documento...</p>
+
+  <aside>
+    <h2>Documentos Disponibles</h2>
+    <div class="document-cards">
+      <div class="card" *ngFor="let document of documents">
+        <h3>{{ document.tema }}</h3>
+        <p>{{ document.malla_curricular }}</p>
+        <p>{{ document.silabo }}</p>
+        <p>{{ document.rubricas }}</p>
+        <button (click)="downloadFile(document.ruta)">Descargar</button>
+      </div>
+    </div>
+  </aside>
+</div>

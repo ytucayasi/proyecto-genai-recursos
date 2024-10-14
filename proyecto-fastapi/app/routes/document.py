@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 from app.database import get_db
 from app.schemas.document import DocumentCreate, Document
 from app.models.document import Document as DocumentModel
@@ -43,7 +45,22 @@ async def generate_word(data: DocumentCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[Document])
 async def get_documents(db: Session = Depends(get_db)):
     try:
-        documents = db.query(DocumentModel).all()
+        documents = db.query(DocumentModel).order_by(desc(DocumentModel.id)).all()
         return documents
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.get("/download/{filename}")
+async def download_file(filename: str):
+    # Construir la ruta para el archivo en el directorio genai
+    file_path = os.path.join("genai", filename)
+
+    # Verificar si el archivo existe
+    if not os.path.isfile(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+
+    return FileResponse(
+        file_path, 
+        media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+        filename=filename
+    )
