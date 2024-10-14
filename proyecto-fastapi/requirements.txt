@@ -8,7 +8,9 @@ PyPDF2
 tiktoken
 sqlalchemy
 pydantic_settings
-psycopg2
+psycopg2-binary
 python-jose
 passlib
 python-docx
+python-pptx
+alembic

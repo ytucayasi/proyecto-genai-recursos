@@ -1,0 +1,37 @@
+<div class="presentation-generator">
+    <h2>Generador de Presentaciones</h2>
+    <form (ngSubmit)="onSubmit()" #presentationForm="ngForm">
+      <div class="form-group">
+        <label for="msg">Tema de la presentación:</label>
+        <input id="msg" [(ngModel)]="request.msg" name="msg" required #msg="ngModel" class="form-control">
+        <div *ngIf="msg.invalid && (msg.dirty || msg.touched)" class="alert alert-danger">
+          El tema de la presentación es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="design">Número de diseño (1-10):</label>
+        <input id="design" [(ngModel)]="request.design" name="design" type="number" min="1" max="10" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="slides">Número de diapositivas:</label>
+        <input id="slides" [(ngModel)]="request.slides" name="slides" type="number" min="1" class="form-control">
+      </div>
+      <button type="submit" [disabled]="!presentationForm.form.valid || isLoading" class="btn btn-primary">
+        {{ isLoading ? 'Generando...' : 'Generar Presentación' }}
+      </button>
+    </form>
+  
+    <div *ngIf="isLoading" class="loading">
+      Generando presentación, por favor espere...
+    </div>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="result" class="result">
+      <h3>Presentación generada:</h3>
+      <button (click)="downloadPptx()" class="btn btn-success">Descargar PPTX</button>
+      <button (click)="downloadPdf()" class="btn btn-info">Descargar PDF</button>
+    </div>
+  </div>
