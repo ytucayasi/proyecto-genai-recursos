@@ -4,24 +4,32 @@ FROM python:3.10-slim
 # Establece el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Instala las dependencias del sistema necesarias para psycopg2
+# Instala las dependencias del sistema necesarias
 RUN apt-get update && apt-get install -y \
     gcc \
     postgresql-client \
     libpq-dev \
+    libreoffice \
     && rm -rf /var/lib/apt/lists/*
 
 # Copia los archivos de requisitos primero para aprovechar la caché de Docker
 COPY requirements.txt .
 
-# Instala las dependencias
+# Instala las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el resto del código de la aplicación al contenedor
 COPY . .
 
+# Crea directorios necesarios para la aplicación
+RUN mkdir -p Designs GeneratedPresentations GeneratedPdf Cache
+
 # Hace que el puerto 8000 esté disponible para el mundo fuera de este contenedor
 EXPOSE 8000
+
+# Cambia a un usuario no root
+RUN useradd -m myuser
+USER myuser
 
 # Ejecuta la aplicación cuando se lanza el contenedor
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

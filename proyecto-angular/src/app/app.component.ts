@@ -7,9 +7,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   imports: [RouterLink, RouterOutlet],
   template: `
     <div class="app-container">
-      <h1>Bienvenido a la Aplicación de Generación de Evaluaciones</h1>
-      <button routerLink="/evaluation-generator" class="options_generate">Ir al Generador de Evaluaciones</button>
-      <button routerLink="/document-generator" class="options_generate">Ir al Generador de Documentos Word</button>
+      <h1>Bienvenido a la Aplicación de Generación de Contenido</h1>
+      <nav>
+        <button routerLink="/evaluation-generator" class="options_generate">Ir al Generador de Evaluaciones</button>
+        <button routerLink="/document-generator" class="options_generate">Ir al Generador de Documentos Word</button>
+        <button routerLink="/presentation-generator" class="options_generate">Ir al Generador de Presentaciones</button>
+      </nav>
       <router-outlet></router-outlet>
     </div>
   `,
@@ -20,6 +23,11 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     }
     .options_generate {
       margin: 5px;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
     }
   `]
 })
