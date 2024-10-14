@@ -7,7 +7,14 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   imports: [RouterLink, RouterOutlet],
   template: `
     <div class="app-container">
-      <h1>Bienvenido a la Aplicación de Generación de Evaluaciones</h1>
+      <div class="header">
+        <div class="logo">
+          <img src="images/logo.jpg" alt="Logo de la aplicación" width="100" height="100"/>
+        </div>
+        <div class="title">
+          <h1>Bienvenido a la Aplicación de Generación de Evaluaciones</h1>
+        </div>
+      </div>
       <button routerLink="/evaluation-generator" class="options_generate">Ir al Generador de Evaluaciones</button>
       <button routerLink="/document-generator" class="options_generate">Ir al Generador de Documentos Word</button>
       <router-outlet></router-outlet>
@@ -20,6 +27,33 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     }
     .options_generate {
       margin: 5px;
+    }
+    .app-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      max-width: 80%;
+      margin: 0 auto;
+    }
+
+    .logo {
+      width: 30% !important;
+    }
+
+    .title {
+      width: 70% !important;
+    }
+
+    .options_generate {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
     }
   `]
 })
